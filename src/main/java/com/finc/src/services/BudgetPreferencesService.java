@@ -1,12 +1,12 @@
 package com.finc.src.services;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finc.src.exceptions.InvalidBudgetPreferenceException;
 import com.finc.src.models.BudgetPreferences;
 import com.finc.src.models.Users;
 import com.finc.src.repositories.BudgetPreferencesRepository;
@@ -28,11 +28,15 @@ public class BudgetPreferencesService {
             prefs.setUser(user);
         }
 
+        //Confirm that preferences add up to 100%
+        if((expenses+wants+savings) != 100){
+            throw new InvalidBudgetPreferenceException("The percentages for necessities, wants, and savings&debts should add up to 100.");
+        }
+
         //Update the Fields
         prefs.setNecessities_percent(expenses);
         prefs.setWants_percent(wants);
         prefs.setSavings_debt_percent(savings);
-        prefs.setEffective_date(LocalDate.now());
 
         //Save to DB
         return budgetPreferencesRepository.save(prefs);

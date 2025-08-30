@@ -1,6 +1,5 @@
 package com.finc.src.models;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 import jakarta.persistence.Entity;
@@ -32,9 +31,6 @@ public class BudgetPreferences {
     @Column (name = "savings_debt_percent", nullable = false)
     private Double savings_debt_percent;
 
-    @Column (name = "effective_date", nullable = false)
-    private LocalDate effective_date;
-
     public Double getNecessities_percent() {
         return necessities_percent;
     }
@@ -59,19 +55,10 @@ public class BudgetPreferences {
         this.savings_debt_percent = savings_debt_percent;
     }
 
-    public LocalDate getEffective_date() {
-        return effective_date;
-    }
-
-    public void setEffective_date(LocalDate effective_date) {
-        this.effective_date = effective_date;
-    }
-
     @Override
     public String toString() {
         return "BudgetPreferences [id=" + id + ", user_id=" + user.getId() + ", necessities_percent=" + necessities_percent
-                + ", wants_percent=" + wants_percent + ", savings_debt_percent=" + savings_debt_percent
-                + ", effective_date=" + effective_date + "]";
+                + ", wants_percent=" + wants_percent + ", savings_debt_percent=" + savings_debt_percent + "]";
     }
 
     public void setUser(Users user) {

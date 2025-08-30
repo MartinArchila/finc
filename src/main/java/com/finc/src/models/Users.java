@@ -19,8 +19,11 @@ public class Users {
     @Column(name="username",nullable = false, unique = true)
     private String username;
 
-    @Column (name="name",nullable = false)
-    private String name;
+    @Column (name="first_name",nullable = false)
+    private String first_name;
+
+    @Column (name="last_name",nullable = false)
+    private String last_name;
 
     @Column (name="email",nullable = false, unique = true)
     private String email;
@@ -28,10 +31,12 @@ public class Users {
     @Column(name="password",nullable = false)
     private String password;
 
-    //Getters & Setters
-    
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -42,12 +47,20 @@ public class Users {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public String getEmail() {
@@ -68,8 +81,8 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users [id=" + id + ", username=" + username + ", name=" + name + ", email=" + email + ", password="
-                + password + "]";
-    }    
+        return "Users [id=" + id + ", username=" + username + ", first_name=" + first_name + ", last_name=" + last_name
+                + ", email=" + email + ", password=" + password + "]";
+    }
     
 }

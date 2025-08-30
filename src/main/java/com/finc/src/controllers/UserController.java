@@ -20,9 +20,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody Users user){
-        // return userService.register(user);
-        return;
+    public Users register(@RequestBody Users user){
+        return userService.register(user);
+        // return;
     }
 
     @PostMapping("/user/retrieveId")
