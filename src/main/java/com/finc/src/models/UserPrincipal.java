@@ -2,18 +2,23 @@ package com.finc.src.models;
 
 import java.util.Collection;
 import java.util.Collections;
-// import java.util.UUID;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserPrincipal implements UserDetails{
+public class UserPrincipal implements UserDetails {
 
     private Users user;
 
-    public UserPrincipal(Users user){
+    public UserPrincipal(Users user) {
         this.user = user;
+    }
+
+    // Add this method
+    public Users getUser() {
+        return user;
     }
 
     @Override
@@ -21,9 +26,9 @@ public class UserPrincipal implements UserDetails{
         return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
 
-    // public UUID getId() {
-    //     return user.getId();
-    // }
+    public UUID getId() {
+        return user.getId();
+    }
 
     @Override
     public String getPassword() {
@@ -54,5 +59,4 @@ public class UserPrincipal implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-    
 }

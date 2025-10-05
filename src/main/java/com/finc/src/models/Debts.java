@@ -86,6 +86,16 @@ public class Debts {
                 + ", min_payment=" + min_payment + ", desc=" + desc + "]";
     }
 
+    public Debts(){}
+
+    public Debts(UUID userId, String name, BigDecimal total_amount, BigDecimal min_payment, String desc) {
+        this.userId = userId;
+        this.name = name;
+        this.total_amount = total_amount;
+        this.min_payment = min_payment;
+        this.desc = desc;
+    }
+
     
     
 }

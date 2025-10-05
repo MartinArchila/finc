@@ -8,10 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.finc.src.models.Users;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Integer>{
+public interface UserRepository extends JpaRepository<Users, UUID> {
 
     Users findByUsername(String username);
-
-    Users findById(UUID id);
-    
 }

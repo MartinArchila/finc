@@ -2,6 +2,8 @@ package com.finc.src.models;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -65,8 +67,19 @@ public class BudgetPreferences {
         this.user = user;
     }
 
+    @JsonIgnore
     public Users getUser(){
         return user;
+    }
+
+    public BudgetPreferences(){}
+
+    public BudgetPreferences(Users user, Double necessities_percent, Double wants_percent,
+            Double savings_debt_percent) {
+        this.user = user;
+        this.necessities_percent = necessities_percent;
+        this.wants_percent = wants_percent;
+        this.savings_debt_percent = savings_debt_percent;
     }
 
     
