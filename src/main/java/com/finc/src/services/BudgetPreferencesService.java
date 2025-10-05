@@ -1,5 +1,6 @@
 package com.finc.src.services;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,20 @@ public class BudgetPreferencesService {
 
     @Transactional
     public BudgetPreferences createOrUpdatePreferences(Users user, double expenses, double wants, double savings){
-        //Fetch existing preferences if they exist
-        BudgetPreferences prefs = budgetPreferencesRepository.findByUser(user);
-
-        if(prefs == null) {
-            //Create new preferences if none exist
-            prefs = new BudgetPreferences();
-            prefs.setUser(user);
-        }
-
-        //Confirm that preferences add up to 100%
+        
+        //Validate percentages add up to 100
         if((expenses+wants+savings) != 100){
             throw new InvalidBudgetPreferenceException("The percentages for necessities, wants, and savings&debts should add up to 100.");
         }
 
-        //Update the Fields
+        //Fetch existing preferences or create new ones
+        BudgetPreferences prefs = budgetPreferencesRepository.findByUser(user)
+                .orElseGet(() -> {
+                    BudgetPreferences newPrefs = new BudgetPreferences(user, 0.0,0.0,0.0);
+                    return newPrefs;
+                });
+
+        //Update the fields
         prefs.setNecessities_percent(expenses);
         prefs.setWants_percent(wants);
         prefs.setSavings_debt_percent(savings);
@@ -42,11 +42,11 @@ public class BudgetPreferencesService {
         return budgetPreferencesRepository.save(prefs);
     }
 
-    public BudgetPreferences getPreferencesByUser(Users user) {
+    public Optional<BudgetPreferences> getPreferencesByUser(Users user) {
         return budgetPreferencesRepository.findByUser(user);
     }
 
-    public BudgetPreferences getPreferencesByUserId(UUID userId){
+    public Optional<BudgetPreferences> getPreferencesByUserId(UUID userId){
         return budgetPreferencesRepository.findByUserId(userId);
     }
 }

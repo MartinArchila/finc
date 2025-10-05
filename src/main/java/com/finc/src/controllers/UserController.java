@@ -1,6 +1,8 @@
 package com.finc.src.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,19 +17,24 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public String login(@RequestBody Users user){
-        return userService.verify(user);
+    public ResponseEntity<String> login(@RequestBody Users user) {
+        String token = userService.verify(user);
+
+        if(token == null || token.isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");
+        }
+
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/register")
-    public Users register(@RequestBody Users user){
-        return userService.register(user);
-        // return;
-    }
-
-    @PostMapping("/user/retrieveId")
-    public String returnUserId(@RequestBody Users user){
-        return userService.returnUserId(user);
+    public ResponseEntity<Users> register(@RequestBody Users user){
+        try{
+            Users registeredUser = userService.register(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 }

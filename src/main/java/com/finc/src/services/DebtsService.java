@@ -21,30 +21,17 @@ public class DebtsService {
 
     public List<Debts> getDebts(Users user){
         //Fetch existing debts
-        List<Debts> debts = debtRepository.findByUser(user);
-
-        //if no debts are returned
-        if(debts.isEmpty()){
-            throw new DebtsException("The user: " + user.getUsername() + "does not have any debts");
-        }
-
-        return debts;
-    }
-
-    public Debts createDebtRecord(Users user, String name, double total_amount, double minimum_payment, String description){
-        Debts new_debt = new Debts();
-
-        new_debt.setUserId(user.getId());
-        new_debt.setName(name);
-        new_debt.setTotal_amount(new BigDecimal(total_amount));
-        new_debt.setMin_payment(new BigDecimal(minimum_payment));
-        new_debt.setDesc(description);
-
-        return new_debt;
+        return debtRepository.findByUserId(user.getId());
     }
 
     @Transactional
-    public void deleteDebRecord(UUID debtId, Users user){
+    public Debts createDebtRecord(Users user, String name, String total_amount, String minimum_payment, String description){
+        Debts new_debt = new Debts(user.getId(), name, new BigDecimal(total_amount), new BigDecimal(minimum_payment), description);
+        return debtRepository.save(new_debt);
+    }
+
+    @Transactional
+    public void deleteDebtRecord(UUID debtId, Users user){
         
         Debts debt = debtRepository.findById(debtId).
                         orElseThrow(() -> new DebtsException("Debt record not found"));
