@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.finc.src.models.BudgetPreferences;
-import com.finc.src.models.PreferencesDto;
 import com.finc.src.models.UserPrincipal;
 import com.finc.src.models.Users;
+import com.finc.src.models.DTOs.PreferencesDto;
 import com.finc.src.repositories.UserRepository;
 import com.finc.src.services.BudgetPreferencesService;
 

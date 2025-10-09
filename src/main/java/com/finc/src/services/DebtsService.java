@@ -3,7 +3,6 @@ package com.finc.src.services;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.finc.src.exceptions.DebtsException;
 import com.finc.src.models.Debts;
 import com.finc.src.models.Users;
+import com.finc.src.models.DTOs.DebtDto;
 import com.finc.src.repositories.DebtRepository;
 
 @Service
@@ -19,15 +19,41 @@ public class DebtsService {
     @Autowired
     private DebtRepository debtRepository;
 
-    public List<Debts> getDebts(Users user){
+    public List<Debts> getDebtsList(Users user){
         //Fetch existing debts
         return debtRepository.findByUserId(user.getId());
     }
 
+    public Debts getDebtRecord(UUID Id){
+
+        Debts debt = debtRepository.findById(Id)
+                .orElseThrow(() -> new RuntimeException("Debt does not Exist"));
+
+        return debt;
+    }
+
     @Transactional
-    public Debts createDebtRecord(Users user, String name, String total_amount, String minimum_payment, String description){
-        Debts new_debt = new Debts(user.getId(), name, new BigDecimal(total_amount), new BigDecimal(minimum_payment), description);
+    public Debts createDebtRecord(Users user, DebtDto dto){
+        Debts new_debt = new Debts(user.getId(), dto.getName(), new BigDecimal(dto.getTotal_amount()),
+                     new BigDecimal(dto.getMinimum_payment()), dto.getDescription());
         return debtRepository.save(new_debt);
+    }
+
+    @Transactional
+    public Debts editDebtRecord(UUID Id, DebtDto dto){
+
+        Debts existingDebts = debtRepository.findById(Id)
+                .orElseThrow(() -> new RuntimeException("Debt not found"));
+
+        BigDecimal AMT = new BigDecimal(dto.getTotal_amount());
+        BigDecimal MINPAY = new BigDecimal(dto.getMinimum_payment());
+
+        existingDebts.setName(dto.getName());
+        existingDebts.setTotal_amount(AMT);
+        existingDebts.setMin_payment(MINPAY);
+        existingDebts.setDesc(dto.getDescription());
+
+        return debtRepository.save(existingDebts);
     }
 
     @Transactional
