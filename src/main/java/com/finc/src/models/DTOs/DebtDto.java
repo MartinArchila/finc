@@ -1,4 +1,4 @@
-package com.finc.src.models;
+package com.finc.src.models.DTOs;
 
 public class DebtDto {
     private String name;

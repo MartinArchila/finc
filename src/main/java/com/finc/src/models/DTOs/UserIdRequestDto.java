@@ -1,4 +1,4 @@
-package com.finc.src.models;
+package com.finc.src.models.DTOs;
 
 import java.util.UUID;
 
