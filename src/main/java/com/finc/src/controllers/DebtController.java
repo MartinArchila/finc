@@ -18,17 +18,12 @@ import com.finc.src.models.Debts;
 import com.finc.src.models.UserPrincipal;
 import com.finc.src.models.Users;
 import com.finc.src.models.DTOs.DebtDto;
-import com.finc.src.repositories.DebtRepository;
 import com.finc.src.repositories.UserRepository;
 import com.finc.src.services.DebtsService;
 
 @RestController
 @RequestMapping("/debts")
 public class DebtController {
-    
-    @Autowired
-    DebtRepository debtRepository;
-
     @Autowired
     DebtsService debtsService;
 

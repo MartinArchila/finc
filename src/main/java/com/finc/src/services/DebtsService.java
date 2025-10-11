@@ -27,7 +27,7 @@ public class DebtsService {
     public Debts getDebtRecord(UUID Id){
 
         Debts debt = debtRepository.findById(Id)
-                .orElseThrow(() -> new RuntimeException("Debt does not Exist"));
+                .orElseThrow(() -> new DebtsException("Debt does not exist"));
 
         return debt;
     }
@@ -43,7 +43,7 @@ public class DebtsService {
     public Debts editDebtRecord(UUID Id, DebtDto dto){
 
         Debts existingDebts = debtRepository.findById(Id)
-                .orElseThrow(() -> new RuntimeException("Debt not found"));
+                .orElseThrow(() -> new DebtsException("Debt not found"));
 
         BigDecimal AMT = new BigDecimal(dto.getTotal_amount());
         BigDecimal MINPAY = new BigDecimal(dto.getMinimum_payment());

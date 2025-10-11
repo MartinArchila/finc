@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.finc.src.models.BudgetPreferences;
 import com.finc.src.models.UserPrincipal;
@@ -17,6 +18,7 @@ import com.finc.src.repositories.UserRepository;
 import com.finc.src.services.BudgetPreferencesService;
 
 @RestController
+@RequestMapping("/preferences")
 public class BudgetPreferencesController {
     
     @Autowired
@@ -25,7 +27,7 @@ public class BudgetPreferencesController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping("/preferences")
+    @PostMapping
     public ResponseEntity<BudgetPreferences> createOrUpdatePreferences(@AuthenticationPrincipal UserPrincipal userPrincipal,
         @RequestBody PreferencesDto dto) {
         
@@ -41,7 +43,7 @@ public class BudgetPreferencesController {
         return ResponseEntity.ok(prefs);
     }
 
-    @GetMapping("/preferences")
+    @GetMapping
     public ResponseEntity<BudgetPreferences> getBudgetPreferences(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         Users user = userPrincipal.getUser();
         return  budgetPreferencesService.getPreferencesByUser(user)

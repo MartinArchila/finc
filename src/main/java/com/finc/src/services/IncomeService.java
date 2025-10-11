@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finc.src.exceptions.IncomeException;
 import com.finc.src.models.Income;
 import com.finc.src.models.Users;
 import com.finc.src.models.DTOs.IncomeDto;
@@ -55,7 +56,7 @@ public class IncomeService {
     public Income updateIncome(UUID Id, IncomeDto dto) {
         
         Income existingIncome = incomeRepository.findById(Id)
-                .orElseThrow(() -> new RuntimeException("Income not found"));
+                .orElseThrow(() -> new IncomeException("Income not found"));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         LocalDate dbPayD = LocalDate.parse(dto.getPayDate(), formatter);
