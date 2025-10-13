@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.finc.src.repositories.UserRepository;
 import com.finc.src.services.NecessitiesService;
 import com.finc.src.models.Necessities;
 import com.finc.src.models.UserPrincipal;
@@ -28,9 +27,6 @@ public class NecessitiesController {
     
     @Autowired
     NecessitiesService necessitiesService;
-
-    @Autowired
-    UserRepository userRepository;
 
     @GetMapping
     public ResponseEntity<List<Necessities>> getNecessitiesList(@AuthenticationPrincipal UserPrincipal userPrincipal){
