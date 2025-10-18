@@ -7,13 +7,12 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.finc.src.models.Debts;
+import com.finc.src.models.Necessities;
 
 @Repository
-public interface DebtRepository extends JpaRepository<Debts, UUID>{
+public interface NecessitiesRepository extends JpaRepository<Necessities, UUID> {
     
-    Optional<Debts> findById(UUID Id);
+    List<Necessities> findByUserId(UUID userId);
 
-    List<Debts> findByUserId(UUID userId);
-    
+    Optional<Necessities> findById(UUID Id);
 }

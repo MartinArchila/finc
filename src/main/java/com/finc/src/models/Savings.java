@@ -10,27 +10,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "debts")
-public class Debts {
+@Table(name="savings")
+public class Savings {
     
     @Id
     @GeneratedValue
     private UUID Id;
 
-    @Column (name ="user_id", nullable = false)
+    @Column(name = "userId", nullable = false)
     private UUID userId;
 
-    @Column (name="name", nullable = false)
+    @Column(name ="name", nullable = false)
     private String name;
 
-    @Column (name="total_amount", nullable = false)
+    @Column (name = "total_amount", nullable = false)
     private BigDecimal total_amount;
 
-    @Column (name ="minimum_payment",nullable = false)
-    private BigDecimal min_payment;
+    @Column(name = "minimum_payment", nullable = false)
+    private BigDecimal minimum_payment;
 
-    @Column (name="description", nullable = false)
-    private String desc;
+    @Column (name = "description", nullable = false)
+    private String description;
 
     public UUID getId() {
         return Id;
@@ -64,38 +64,36 @@ public class Debts {
         this.total_amount = total_amount;
     }
 
-    public BigDecimal getMin_payment() {
-        return min_payment;
+    public BigDecimal getMinimum_payment() {
+        return minimum_payment;
     }
 
-    public void setMin_payment(BigDecimal min_payment) {
-        this.min_payment = min_payment;
+    public void setMinimum_payment(BigDecimal minimum_payment) {
+        this.minimum_payment = minimum_payment;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
-        return "Debts [Id=" + Id + ", userId=" + userId + ", name=" + name + ", total_amount=" + total_amount
-                + ", min_payment=" + min_payment + ", desc=" + desc + "]";
+        return "Savings [Id=" + Id + ", userId=" + userId + ", name=" + name + ", total_amount=" + total_amount
+                + ", minimum_payment=" + minimum_payment + ", description=" + description + "]";
     }
 
-    public Debts(){}
-
-    public Debts(UUID userId, String name, BigDecimal total_amount, BigDecimal min_payment, String desc) {
+    public Savings(UUID userId, String name, BigDecimal total_amount, BigDecimal minimum_payment, String description) {
         this.userId = userId;
         this.name = name;
         this.total_amount = total_amount;
-        this.min_payment = min_payment;
-        this.desc = desc;
+        this.minimum_payment = minimum_payment;
+        this.description = description;
     }
 
-    
-    
+    public Savings(){}
+
 }

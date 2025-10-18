@@ -1,19 +1,10 @@
-package com.finc.src.models;
-
-import java.util.UUID;
+package com.finc.src.models.DTOs;
 
 public class PreferencesDto {
-    private UUID userId;
     private double expenses;
     private double wants;
     private double savings;
     
-    public UUID getUserId() {
-        return userId;
-    }
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
     public double getExpenses() {
         return expenses;
     }
